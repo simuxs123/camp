@@ -1,0 +1,15 @@
+<nav>
+    <div >
+        <ul>
+            <li><a href="{{ url_for("index") }}">Home</a></li>
+            {% if session['id'] %}
+                 <li><a href="{{ url_for("add-campground") }}">Add Campground</a></li>
+                 <li><a href="{{ url_for("my-campgrounds") }}">My Campgrounds</a></li>
+                 <li><a href="{{ url_for("logout") }}">Logout</a></li>
+            {% else %}
+            <li><a href="{{ url_for("register") }}">Register</a></li>
+            <li><a href="{{ url_for("login") }}">Login</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>

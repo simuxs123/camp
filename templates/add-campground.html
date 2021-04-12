@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'base-head.html' %}
+<body>
+{% include 'navbar.html' %}
+    <p class="text-center">add campground</p>
+    <form method="post" enctype="multipart/form-data">
+        {{campground_form.csrf_token}}
+        {% for field in campground_form if field.id != 'csrf_token'%}
+            <div class="">
+                <i class="">{{ field.label }}</i>
+                {{ field(class_="validate") }}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Update</button>
+        <a href="{{ url_for('index') }}" class="btn btn-danger">Cancel</a>
+    </form>
+{% include 'base-footer.html' %}
+</body>
+</html>

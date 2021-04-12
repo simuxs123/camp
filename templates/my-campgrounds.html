@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'base-head.html' %}
+<body>
+{% include 'navbar.html' %}
+<p class="text-center">labas vakaras</p>
+{% if count>0 %}
+    {% for camp in campgrounds %}
+        <p><a href="{{ url_for('campground',campground_id=camp.id) }}">{{ camp.title }}</a></p>
+    {% endfor %}
+{% else %}
+    <p>You dont have any added campgrounnds!</p>
+{% endif %}
+{% include 'base-footer.html' %}
+</body>
+</html>

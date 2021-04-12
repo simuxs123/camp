@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'base-head.html' %}
+<body>
+{% include 'navbar.html' %}
+<p class="text-center">Details</p>
+<img src="{{ '/static/img/'+campground.image }}" >
+{% if not home %}
+    <a href="{{ url_for('delete',campground_id=campground_id) }}" class="btn btn-danger">DELETE</a>
+    <a href="{{ url_for('update',campground_id=campground_id) }}" class="btn btn-warning">Update</a>
+{% endif %}
+<a href="{{ url_for('index') if home else url_for('my-campgrounds') }}" class="btn btn-warning">Go back</a>
+
+{% include 'base-footer.html' %}
+</body>
+</html>

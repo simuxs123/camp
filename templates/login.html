@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'base-head.html' %}
+<body>
+{% include 'navbar.html' %}
+<p>{{ error }}</p>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <p>{{ messages[0] }}</p>
+  {% endif %}
+{% endwith %}
+<form method="post">
+        {{login_form.csrf_token}}
+        {% for field in login_form if field.id != 'csrf_token'%}
+            <div class="">
+                <i class="">{{ field.label }}</i>
+                {{ field(class_="validate") }}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+{% include 'base-footer.html' %}
+</body>
+</html>

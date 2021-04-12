@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+{% include 'base-head.html' %}
+<body>
+{% include 'navbar.html' %}
+{{ title }}
+    <form method="post">
+        {{registration_form.csrf_token}}
+        {% for field in registration_form if field.id != 'csrf_token'%}
+            <div class="">
+                <i class="">{{ field.label }}</i>
+                {{ field(class_="validate") }}
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+{% include 'base-footer.html' %}
+</body>
+</html>
