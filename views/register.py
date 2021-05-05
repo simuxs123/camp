@@ -14,6 +14,10 @@ class Register(MethodView):
     def post(self):
         registration_form=RegisterForm()
         if registration_form.validate_on_submit():
+            user = User.query.filter_by(email=registration_form.email.data).first()
+            if user :
+                registration_form.email.data = ""
+                return render_template('register.html', registration_form=registration_form, error="Email already exist")
             new_user=User(first_name=registration_form.first_name.data,
                           last_name=registration_form.last_name.data,
                           email=registration_form.email.data,

@@ -1,20 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-{% include 'base-head.html' %}
-<body>
-{% include 'navbar.html' %}
-    <p class="text-center">add campground</p>
-    <form method="post" enctype="multipart/form-data">
-        {{campground_form.csrf_token}}
-        {% for field in campground_form if field.id != 'csrf_token'%}
-            <div class="">
-                <i class="">{{ field.label }}</i>
-                {{ field(class_="validate") }}
-            </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-primary">Update</button>
-        <a href="{{ url_for('index') }}" class="btn btn-danger">Cancel</a>
-    </form>
-{% include 'base-footer.html' %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+        <h1 class="text-center text-capitalize my-4">{{ button}}</h1>
+        <form class="post-form mb-3" method="post" enctype="multipart/form-data">
+            {{campground_form.csrf_token}}
+            {% for field in campground_form if field.id != 'csrf_token'%}
+                <div class="form-group">
+                {% if field.id == 'description' %}
+                    {{ field.label }}
+                    {{ field(rows='5' ,class_="validate form-control")}}
+                {% else %}
+                     {{ field.label }}
+                    {{ field(class_="validate form-control") }}
+                {% endif %}
+                </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-primary">{{ button}}</button>
+            <a href="{{ url_for('index') }}" class="btn btn-danger">Cancel</a>
+        </form>
+{% endblock %}

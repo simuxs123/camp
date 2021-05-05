@@ -16,17 +16,23 @@ class AddCampground(MethodView):
         session['home'] = False;
         if session.get('id') is None:
             return redirect(url_for('login'))
-        return render_template('add-campground.html', campground_form=campground_form)
+        return render_template('add-campground.html', campground_form=campground_form,button='Add campground')
     def post(self):
         campground_form = CreateCampground()
         if campground_form.validate_on_submit():
             user = User.query.filter_by(id=session.get('id')).first()
             file = campground_form.image.data
-            image_file = secure_filename(user.first_name+'_'+file.filename)
-            tinify.key = 'LQQVx8qmRrXNr0cV410NK4YgwDd7ZGpN'
-            tinify.from_file(path=file).to_file(os.path.join('static/img',image_file))
+            if file:
+                image_file = secure_filename(user.first_name+'_'+file.filename)
+                tinify.key = 'LQQVx8qmRrXNr0cV410NK4YgwDd7ZGpN'
+                tinify.from_file(path=file).to_file(os.path.join('static/img', image_file))
+            else:
+                image_file=""
+
+
             new_campground = Campground(title=campground_form.title.data,
-                                  location=campground_form.location.data,
+                                  city=campground_form.city.data,
+                                  address=campground_form.address.data,
                                   price=campground_form.price.data,
                                   image=image_file,
                                   description=campground_form.description.data,

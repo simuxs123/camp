@@ -1,16 +1,29 @@
-<!DOCTYPE html>
-<html lang="en">
-{% include 'base-head.html' %}
-<body>
-{% include 'navbar.html' %}
-<p class="text-center">labas vakaras</p>
-{% if count>0 %}
-    {% for camp in campgrounds %}
-        <p><a href="{{ url_for('campground',campground_id=camp.id) }}">{{ camp.title }}</a></p>
-    {% endfor %}
-{% else %}
-    <p>You dont have any added campgrounnds!</p>
-{% endif %}
-{% include 'base-footer.html' %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+  <h1 class="text-center my-4">My campgrounds list</h1>
+    <div class="row">
+    {% if count>0 %}
+        {% for camp in campgrounds %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        <img class="card-img-top" src="{{ '/static/img/'+camp.image }}" alt="">
+                        <div class="card-body">
+                            <h4 class="card-title text-capitalize">
+                                {{ camp.title }}
+                            </h4>
+                            <div class="d-flex justify-content-between">
+                                <h6>Price: {{camp.price}}Eur/night</h6>
+                                <h6 class="text-secondary text-capitalize">City: {{camp.city}}</h6>
+                            </div>
+                            <p class="card-text prod-content"> {{camp.description}}</p>
+                            <a href="{{ url_for('campground',campground_id=camp.id) }}" class="btn btn-sm btn-warning ">
+                                <i class="material-icons">view_list</i> View</a>
+                        </div>
+                    </div>
+                </div>
+        {% endfor %}
+    {% else %}
+        <p class="alert alert-danger mx-auto">You dont have any added campgrounds!</p>
+    {% endif %}
+    </div>
+{% endblock %}

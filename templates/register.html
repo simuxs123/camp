@@ -1,19 +1,24 @@
-<!DOCTYPE html>
-<html lang="en">
-{% include 'base-head.html' %}
-<body>
-{% include 'navbar.html' %}
-{{ title }}
-    <form method="post">
-        {{registration_form.csrf_token}}
-        {% for field in registration_form if field.id != 'csrf_token'%}
-            <div class="">
-                <i class="">{{ field.label }}</i>
-                {{ field(class_="validate") }}
-            </div>
-        {% endfor %}
-        <button type="submit" class="btn btn-primary">Register</button>
-    </form>
-{% include 'base-footer.html' %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block content %}
+    <div class="row">
+      <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+        <div class="card card-signin my-5">
+          <div class="card-body">
+            {% if error %}
+              <p class="text-center alert alert-danger">{{ error }}</p>
+            {% endif %}
+            <h5 class="card-title text-center">Sign Up</h5>
+            <form class="form-signin" method="post">
+                {{registration_form.csrf_token}}
+                {% for field in registration_form if field.id != 'csrf_token'%}
+                    <div class="form-label-group">
+                        {{ field(class_="validate form-control") }}
+                    </div>
+                {% endfor %}
+              <button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Sign up</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock %}
